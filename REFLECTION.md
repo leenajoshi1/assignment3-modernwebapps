@@ -16,7 +16,7 @@ The actual list-removal excerpt from `static/scripts/photo-portal.js`, displayed
 
 ## Screenshot 2 - Working result
 
-The admin page after updating image_1.png, showing the success status and the replacement tags in photo details. Test images are simple generated fixtures, not personal photographs.
+The admin page after updating image_1.jpg, showing the success status and the replacement tags in photo details. Test images are simple generated fixtures, not personal photographs.
 
 ![Screenshot 2: successful tag update](02-working-result.png)
 
