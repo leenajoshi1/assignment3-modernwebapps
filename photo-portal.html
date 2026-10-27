@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personal Photo Portal</title><link rel="stylesheet" href="{{ url_for('static', filename='portal.css') }}">
+<script defer src="{{ url_for('static', filename='scripts/photo-portal.js') }}"></script></head>
+<body data-user="{{ user }}"><header><a href="/">MWA</a><h1>Photo Portal</h1><form id="settings-and-logout-form" action="/logout" method="post"><span>{{ username }} · {{ user }}</span> <button>Logout</button></form></header>
+<div class="layout"><aside><h2>Photos</h2>
+<!-- Requirements 3.1 / 4.1: only administrators get radio buttons and actions. -->
+<form id="update_delete_form" action="/delete_photos" method="post"><ol id="photo_list">
+{% for photo in photo_list %}<li id="{{ photo.name }}-photo-anchor" data-name="{{ photo.name }}">
+{% if user == 'admin' %}<input type="radio" name="photo_name" value="{{ photo.name }}" aria-label="Select {{ photo.name }}">{% endif %}
+<a href="#" data-photo-link="{{ photo.name }}">{{ photo.name }}</a></li>{% endfor %}</ol>
+{% if user == 'admin' %}<div class="actions"><a href="#" id="delete-photo">Delete Photo</a><a href="#" id="update-tags">Update Tags</a></div>{% endif %}</form></aside>
+<main><p id="status_string" role="status">{{ photo_upload_status }}</p>
+<section><h2>Your collection</h2><button id="startSlideShow" onclick="start_slide_show()">Start slide show</button> <button id="stopSlideShow" onclick="stop_slide_show()">Stop slide show</button><div id="slideshowImage" aria-live="polite"></div><div id="photo-details"></div></section>
+{% if user == 'admin' %}<section id="uploadPhotoFormDiv"><h2>Upload a photo</h2><form id="uploadPhotoForm" action="/upload" method="post" enctype="multipart/form-data"><label>Photo Name<input type="file" name="photo_name" id="photo_name"></label><label>Date taken<input type="text" name="date_taken" placeholder="MM/DD/YYYY"></label><label>Tags<input name="tags" placeholder="comma separated tags"></label><button>Submit</button></form></section>{% endif %}
+</main><aside><h2>Thumbnails</h2><ol id="available_photos_list">{% for photo in photo_list %}<li id="{{ photo.name }}-thumbnail-li" data-name="{{ photo.name }}"><figure><img src="{{ url_for('static',filename='images/photos/' + photo.name) }}" alt="{{ photo.name }}" data-preview="{{ photo.name }}"><figcaption>{{ photo.name }}</figcaption></figure></li>{% endfor %}</ol></aside></div>
+<dialog id="tagsModal"><form action="/update_tags" method="post" id="tags-form"><h2>Update Tags</h2><p>Photo name: <strong id="tags-photo-name"></strong></p><p>Current tags: <span id="current-tags"></span></p><input type="hidden" name="photo_name" id="tags-photo-input"><label>New tags<input name="new_tags" id="new-tags"></label><button id="submit-tags">Update tags</button> <button type="button" onclick="document.getElementById('tagsModal').close()">Cancel</button></form></dialog>
+<dialog id="imageModal"><button onclick="document.getElementById('imageModal').close()">Close</button><div id="image-modal-body"></div></dialog>
+<script type="application/json" id="initial-photos">{{ photo_list | tojson }}</script></body></html>
