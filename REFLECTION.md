@@ -12,16 +12,16 @@ Testing covered both the backend and the browser. Six integration tests verified
 
 The actual list-removal excerpt from `static/scripts/photo-portal.js`, displayed in a local code evidence page.
 
-![Screenshot 1: list synchronization code](screenshots/01-code.png)
+![Screenshot 1: list synchronization code](01-code.png)
 
 ## Screenshot 2 - Working result
 
-The admin page after updating tower.png, showing the success status and the replacement tags in photo details. Test images are simple generated fixtures, not personal photographs.
+The admin page after updating image_1.png, showing the success status and the replacement tags in photo details. Test images are simple generated fixtures, not personal photographs.
 
-![Screenshot 2: successful tag update](screenshots/02-working-result.png)
+![Screenshot 2: successful tag update](02-working-result.png)
 
 ## Screenshot 3 - Testing
 
 Captured browser rendering of the actual output from `python test_application.py`, showing all six integration tests passing.
 
-![Screenshot 3: six passing backend tests](screenshots/03-testing.png)
+![Screenshot 3: six passing backend tests](03-testing.png)
